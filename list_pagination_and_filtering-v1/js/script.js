@@ -16,9 +16,10 @@ FSJS project 2 - List Filter and Pagination
    will only be used inside of a function, then it can be locally
    scoped to that function.
 ***/
+const listItem = document.getElementsByClassName('student-item cf');
+const pageItems =  10;
 
-
-
+// console.log(listItem);
 
 /***
    Create the `showPage` function to hide all of the items in the
@@ -34,14 +35,62 @@ FSJS project 2 - List Filter and Pagination
        that will be passed into the parens later when you call or
        "invoke" the function
 ***/
+const showPage = (list, page) => {
+  let startIndex = (page * pageItems) - pageItems
+  let endIndex = (page * pageItems) - 1;
+    for (let i = 0; i < list.length; i+=1){
+    if (i >= startIndex && i <= endIndex ){
+        list[i].style.display = '';
+      }
+        else {
+         list[i].style.display = 'none';
+      }
+  }};
 
-
-
-
+  // showPage(listItem, 6);
 /***
    Create the `appendPageLinks function` to generate, append, and add
    functionality to the pagination buttons.
+
+  <!-- pagination HTML to create dynamically -->
+   <div class="pagination">
+     <ul>
+       <li>
+         <a class="active" href="#">1</a>
 ***/
+// const a = document.createElement('a')
+
+const appendPageLinks = (list) => {
+  const pages = Math.ceil((listItem.length/pageItems));
+  const pageDiv = document.querySelector('.page');
+  const div = document.createElement('div');
+  const ul = document.createElement('ul');
+  const pageLi = document.createElement('li');
+  const a = document.createElement('a')
+
+
+
+  for (let i=0;i<pages; i+=1){
+    const ul = document.createElement('ul');
+    const pageLi = document.createElement('li');
+    pageLi.appendChild(ul);
+    a.appendChild(pageLi);
+    pageLi.textContent = i;
+    a.setAttribute('href','#');
+    a.textContent = i
+    }
+
+  div.className = 'pagination';
+  ul.appendChild(div);
+  pageDiv.appendChild(div);
+}
+appendPageLinks(listItem);
+// console.log(pageLi)
+// console.log(a)
+
+
+  // a.addEventListener('click'){ showPage(listItem, ))};
+
 
 
 
