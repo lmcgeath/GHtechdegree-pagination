@@ -2,38 +2,10 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
-
-
-/***
-   Add your global variables that store the DOM elements you will
-   need to reference and/or manipulate.
-
-   But be mindful of which variables should be global and which
-   should be locally scoped to one of the two main functions you're
-   going to create. A good general rule of thumb is if the variable
-   will only be used inside of a function, then it can be locally
-   scoped to that function.
-***/
 const listItem = document.getElementsByClassName('student-item cf');
 const pageItems =  10;
-
-// console.log(listItem);
-
 /***
-   Create the `showPage` function to hide all of the items in the
-   list except for the ten you want to show.
-
-   Pro Tips:
-     - Keep in mind that with a list of 54 students, the last page
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when
-       you initially define the function, and it acts as a variable
-       or a placeholder to represent the actual function `argument`
-       that will be passed into the parens later when you call or
-       "invoke" the function
+Takes a dynamic list, displays 10 items per page and hides the rest.
 ***/
 const showPage = (list, page) => {
   let startIndex = (page * pageItems) - pageItems
@@ -47,53 +19,53 @@ const showPage = (list, page) => {
       }
   }};
 
-  // showPage(listItem, 6);
 /***
-   Create the `appendPageLinks function` to generate, append, and add
-   functionality to the pagination buttons.
-
-  <!-- pagination HTML to create dynamically -->
-   <div class="pagination">
-     <ul>
-       <li>
-         <a class="active" href="#">1</a>
+  Creates a hierarchy of html elements,
+  assigns their classes, text content and attributes,
+  appends them to the page and applies click behavior.
 ***/
-// const a = document.createElement('a')
-
 const appendPageLinks = (list) => {
+  /*calculates the number of pages needed based on the items in
+  the given list.*/
   const pages = Math.ceil((listItem.length/pageItems));
+  //creates and appends html elements.
   const pageDiv = document.querySelector('.page');
   const div = document.createElement('div');
   const ul = document.createElement('ul');
   const pageLi = document.createElement('li');
   const a = document.createElement('a')
-  
-
-
-  for (let i=0;i<pages; i+=1){
-
-    const pageLi = document.createElement('li');
-    pageLi.appendChild(ul);
-    a.appendChild(pageLi);
-    pageLi.textContent = i;
-    a.setAttribute('href','#');
-    a.textContent = i
-    }
-
   div.className = 'pagination';
-  ul.appendChild(div);
   pageDiv.appendChild(div);
-}
+  div.appendChild(ul);
+
+/*Loops through the list to create the appropriate number of
+list and a elements, assigns their content and appends them.*/
+  for (let i=1;i<=pages; i+=1){
+    const a = document.createElement('a')
+    const pageLi = document.createElement('li');
+    a.setAttribute('href','#');
+    a.textContent = i;
+    pageLi.appendChild(a);
+    ul.appendChild(pageLi);
+//Sets the first page on initial load to active.
+const firstA = document.querySelector('a')
+firstA.className = 'active';
+
+/*Creates a click event to assign the
+active class to only the displaying page.*/
+ul.addEventListener('click', (e) => {
+  for (let i = 0; i<pages; i+=1){
+    a.className = '';
+  }
+    firstA.classList.remove('active');
+    e.target.className = 'active';
+    a.classList.remove('active');
+    const pageNum = e.target.textContent;
+    showPage(listItem, pageNum)
+});
+
+
+  }};
+//calls both functions to display page 1 on intial load.
+showPage(listItem, 1);
 appendPageLinks(listItem);
-// console.log(pageLi)
-// console.log(a)
-
-
-  // a.addEventListener('click'){ showPage(listItem, ))};
-
-
-
-
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
