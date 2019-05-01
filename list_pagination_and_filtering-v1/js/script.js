@@ -67,11 +67,11 @@ const appendPageLinks = (list) => {
   const ul = document.createElement('ul');
   const pageLi = document.createElement('li');
   const a = document.createElement('a')
-
+  
 
 
   for (let i=0;i<pages; i+=1){
-    const ul = document.createElement('ul');
+
     const pageLi = document.createElement('li');
     pageLi.appendChild(ul);
     a.appendChild(pageLi);
