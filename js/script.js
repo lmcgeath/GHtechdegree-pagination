@@ -62,10 +62,8 @@ ul.addEventListener('click', (e) => {
     a.classList.remove('active');
     const pageNum = e.target.textContent;
     showPage(listItem, pageNum)
-});
-
-
-  }};
+  });
+}};
 //calls both functions to display page 1 on intial load.
 showPage(listItem, 1);
 appendPageLinks(listItem);
